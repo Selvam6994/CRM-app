@@ -6,6 +6,80 @@
   font-family: Poppins;
 }
 
+/* ********Main login Page properties starts *********** */
+.loginPage {
+  border: 2px solid;
+  width: 100%;
+  min-width: 280px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #3e0e40;
+}
+.textArea {
+  border: 2px solid;
+  width: 50%;
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.textArea :nth-child(1) {
+  font-size: 35px;
+  font-weight: bolder;
+  color: antiquewhite;
+}
+.textArea :nth-child(2) {
+  font-size: 25px;
+  font-weight: bolder;
+  color: antiquewhite;
+}
+.loginUserButtons {
+  border: 2px solid;
+  width: 50%;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+.selectUserButtons {
+  width: fit-content;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  color: #3e0e40;
+  font-weight: bolder;
+  padding: 0 20px 0 20px;
+  cursor: pointer;
+}
+
+.LoginForm {
+  width: 500px;
+  height: 400px;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.inputSection {
+  border: 2px solid;
+  width: 80%;
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+}
+/* ********Main login Page properties end*********** */
 /* ********Manger Dash board *********** */
 .managerDashboard {
   display: flex;
@@ -196,6 +270,7 @@
   justify-content: center;
   align-items: center;
 }
+
 /* ********add admin form properties ends********** */
 
 /* ********lead page form properties starts********** */
@@ -230,7 +305,6 @@
   border: 2px solid;
   width: 100%;
   height: 100%;
-
 }
 .addNewLeadsForm {
   position: absolute;
