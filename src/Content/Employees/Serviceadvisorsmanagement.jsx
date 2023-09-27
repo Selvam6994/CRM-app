@@ -6,23 +6,18 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import { useFormik } from "formik";
-import profileImage from "./assets/Images/profile.webp";
+import profileImage from "../../assets/Images/profile.webp";
 
-function Adminmanagement() {
+function Serviceadvisorsmanagement() {
   const buttons = [
     {
-      name: "Back",
-      linkTo: "/managerDashBoard/managerHomepage",
-      color: "#E00B2E",
-    },
-    {
-      name: "Add Admin",
+      name: "Add Service Advisor",
       color: "#004DCB",
     },
   ];
 
   //   temporary data
-  const adminData = [
+  const advisorData = [
     {
       name: "Shaker.R",
       id: "001",
@@ -81,7 +76,7 @@ function Adminmanagement() {
         {buttons.map((data) => (
           <motion.div
             onClick={() => {
-              data.name == "Add Admin" ? setAddForm(true) : setAddForm(false);
+              data.name == "Add Service Advisor" ? setAddForm(true) : setAddForm(false);
             }}
             whileHover={{ scale: 1 }}
             whileTap={{ scale: 0.9 }}
@@ -91,7 +86,7 @@ function Adminmanagement() {
               <Paper className="userButtons">
                 {data.name == "Back" ? (
                   <ArrowBackIosNewIcon sx={{ color: `${data.color}` }} />
-                ) : data.name == "Add Admin" ? (
+                ) : data.name == "Add Service Advisor" ? (
                   <AddIcon sx={{ color: `${data.color}` }} />
                 ) : (
                   ""
@@ -103,7 +98,7 @@ function Adminmanagement() {
         ))}
       </div>
       <div className="dataSection">
-        {adminData.map((data) => (
+        {advisorData.map((data) => (
           <Paper className="userDataCards" elevation={8}>
             <img
               src={profileImage}
@@ -112,7 +107,7 @@ function Adminmanagement() {
             />
             <div className="userDataSection">
               <span style={{ color: "#3E0E40", fontWeight: "bold" }}>Id:</span>
-              <span>AD{data.id}</span>
+              <span>SA{data.id}</span>
             </div>
             <div className="userDataSection">
               <span style={{ color: "#3E0E40", fontWeight: "bold" }}>
@@ -137,7 +132,7 @@ function Adminmanagement() {
       </div>
       {addForm == true ? (
         <Paper elevation={8} className="addUserForm">
-          <span>Add Admin</span>
+          <span>Add Service Advisor</span>
           <form
             className="textFieldSection"
             onSubmit={addUserForm.handleSubmit}
@@ -197,7 +192,7 @@ function Adminmanagement() {
                       color: "white",
                     }}
                   >
-                    Create Admin
+                    Add Service Advisor
                   </Paper>
                 </Button>
               </motion.div>
@@ -229,4 +224,4 @@ function Adminmanagement() {
   );
 }
 
-export default Adminmanagement;
+export default Serviceadvisorsmanagement;

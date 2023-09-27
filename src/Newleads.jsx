@@ -15,7 +15,7 @@ function Newleads() {
       color: "#E00B2E",
     },
     {
-      name: "Add Leads",
+      name: "New Leads",
       color: "#004DCB",
     },
   ];
@@ -41,7 +41,7 @@ function Newleads() {
         {leadPageButtons.map((data) => (
           <motion.div
             onClick={() => {
-              data.name == "Add Leads"
+              data.name == "New Leads"
                 ? addLeadsForm(true)
                 : addLeadsForm(false);
             }}
@@ -57,7 +57,7 @@ function Newleads() {
               >
                 {data.name == "Back" ? (
                   <ArrowBackIosNewIcon sx={{ color: `${data.color}` }} />
-                ) : data.name == "Add Leads" ? (
+                ) : data.name == "New Leads" ? (
                   <AddIcon sx={{ color: `${data.color}` }} />
                 ) : (
                   ""
@@ -71,7 +71,7 @@ function Newleads() {
       <div className="tableSection"></div>
       {leadsform == true ? (
         <Paper elevation={8} className="addNewLeadsForm">
-          <span>Add Admin</span>
+          <span>New Leads</span>
           <form
             className="textFieldSection"
             onSubmit={addNewLeadsForm.handleSubmit}

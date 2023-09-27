@@ -6,23 +6,18 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import { useFormik } from "formik";
-import profileImage from "./assets/Images/profile.webp";
+import profileImage from "../../assets/Images/profile.webp";
 
-function Serviceadvisorsmanagement() {
+function Adminmanagement() {
   const buttons = [
     {
-      name: "Back",
-      linkTo: "/managerDashBoard/managerHomepage",
-      color: "#E00B2E",
-    },
-    {
-      name: "Add Service Advisor",
+      name: "Add Admin",
       color: "#004DCB",
     },
   ];
 
   //   temporary data
-  const advisorData = [
+  const adminData = [
     {
       name: "Shaker.R",
       id: "001",
@@ -61,18 +56,27 @@ function Serviceadvisorsmanagement() {
     },
   ];
   const [addForm, setAddForm] = useState(false);
-
+const[errorMessage,setErrorMessage] = useState("")
   //   formik form validation
-  const addUserForm = useFormik({
+  const addAdminForm = useFormik({
     initialValues: {
       name: "",
       email: "",
-      mobile: "",
-      password: "",
-      confirmPassword: "",
+      phone: "",
+      pin: "",
+      confirmPin: "",
     },
-    onSubmit: (values) => {
-      console.log(values);
+    onSubmit: async (values) => {
+      const postData = await fetch("http://localhost:4000/adminSignUp", {
+        method: "POST",
+        headers: { "Content-type": "application/json" },
+        body: JSON.stringify(values),
+      });
+      if (postData.status == 200) {
+        setAddForm(false);
+      } else {
+        setErrorMessage(postData.message);
+      }
     },
   });
   return (
@@ -81,7 +85,7 @@ function Serviceadvisorsmanagement() {
         {buttons.map((data) => (
           <motion.div
             onClick={() => {
-              data.name == "Add Service Advisor" ? setAddForm(true) : setAddForm(false);
+              data.name == "Add Admin" ? setAddForm(true) : setAddForm(false);
             }}
             whileHover={{ scale: 1 }}
             whileTap={{ scale: 0.9 }}
@@ -91,7 +95,7 @@ function Serviceadvisorsmanagement() {
               <Paper className="userButtons">
                 {data.name == "Back" ? (
                   <ArrowBackIosNewIcon sx={{ color: `${data.color}` }} />
-                ) : data.name == "Add Service Advisor" ? (
+                ) : data.name == "Add Admin" ? (
                   <AddIcon sx={{ color: `${data.color}` }} />
                 ) : (
                   ""
@@ -103,7 +107,7 @@ function Serviceadvisorsmanagement() {
         ))}
       </div>
       <div className="dataSection">
-        {advisorData.map((data) => (
+        {adminData.map((data) => (
           <Paper className="userDataCards" elevation={8}>
             <img
               src={profileImage}
@@ -112,7 +116,7 @@ function Serviceadvisorsmanagement() {
             />
             <div className="userDataSection">
               <span style={{ color: "#3E0E40", fontWeight: "bold" }}>Id:</span>
-              <span>SA{data.id}</span>
+              <span>AD{data.id}</span>
             </div>
             <div className="userDataSection">
               <span style={{ color: "#3E0E40", fontWeight: "bold" }}>
@@ -132,15 +136,16 @@ function Serviceadvisorsmanagement() {
               </span>
               <span> {data.phone}</span>
             </div>
+            <Button style={{ color: "red" }}>Reset pin</Button>
           </Paper>
         ))}
       </div>
       {addForm == true ? (
         <Paper elevation={8} className="addUserForm">
-          <span>Add Service Advisor</span>
+          <span>Add Admin</span>
           <form
             className="textFieldSection"
-            onSubmit={addUserForm.handleSubmit}
+            onSubmit={addAdminForm.handleSubmit}
           >
             <TextField
               id="standard-search"
@@ -148,7 +153,7 @@ function Serviceadvisorsmanagement() {
               type="name"
               variant="standard"
               name="name"
-              onChange={addUserForm.handleChange}
+              onChange={addAdminForm.handleChange}
             />
             <TextField
               id="standard-search"
@@ -156,32 +161,33 @@ function Serviceadvisorsmanagement() {
               type="email"
               name="email"
               variant="standard"
-              onChange={addUserForm.handleChange}
+              onChange={addAdminForm.handleChange}
             />
             <TextField
               id="standard-search"
-              label="Mobile"
-              type="mobile"
-              name="mobile"
+              label="Phone"
+              type="phone"
+              name="phone"
               variant="standard"
-              onChange={addUserForm.handleChange}
+              onChange={addAdminForm.handleChange}
             />
             <TextField
               id="standard-search"
-              label="Password"
-              type="password"
-              name="password"
+              label="Pin"
+              type="pin"
+              name="pin"
               variant="standard"
-              onChange={addUserForm.handleChange}
+              onChange={addAdminForm.handleChange}
             />
             <TextField
               id="standard-search"
-              label="Confirm Password"
-              type="confirm password"
-              name="confirmPassword"
+              label="Confirm Pin"
+              type="confirm pin"
+              name="confirmPin"
               variant="standard"
-              onChange={addUserForm.handleChange}
+              onChange={addAdminForm.handleChange}
             />
+            <span>{errorMessage}</span>
             <div className="formButtonSection">
               <motion.div
                 whileHover={{ scale: 1 }}
@@ -197,10 +203,11 @@ function Serviceadvisorsmanagement() {
                       color: "white",
                     }}
                   >
-                    Add Service Advisor
+                    Create Admin
                   </Paper>
                 </Button>
               </motion.div>
+
               <motion.div
                 whileHover={{ scale: 1 }}
                 whileTap={{ scale: 0.9 }}
@@ -229,4 +236,4 @@ function Serviceadvisorsmanagement() {
   );
 }
 
-export default Serviceadvisorsmanagement;
+export default Adminmanagement;

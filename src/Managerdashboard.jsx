@@ -4,22 +4,30 @@ import { motion } from "framer-motion";
 
 import { Routes, Route, Link, Outlet } from "react-router-dom";
 
-
 function Managerdashboard() {
   const navButtons = [
     {
-      name: "Admin",
-      linkTo: "adminManagement",
+      name: "Leads",
+      linkTo: "",
     },
     {
-      name: "Advisors",
-      linkTo: "serviceAdvisorManagement",
+      name: "Service Requests",
+      linkTo: "serviceRequests",
     },
     {
-      name: "Technicians",
-      linkTo: "techniciansManagement",
+      name: "Employees",
+      linkTo: "employees",
+    },
+    {
+      name: "Customer Data",
+      linkTo: "/customers",
+    },
+    {
+      name: "Inventory",
+      linkTo: "#",
     },
   ];
+
   return (
     <div className="managerDashboard">
       <Paper
@@ -42,15 +50,10 @@ function Managerdashboard() {
                 <Paper
                   elevation={8}
                   style={{
-                    width: "150px",
-                    height: "50px",
                     borderRadius: "10px",
-                    cursor: "pointer",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
                     backgroundColor: "#3E0E40",
                   }}
+                  className="sideNavButtons"
                 >
                   <span className="navButtonText">{data.name}</span>
                 </Paper>
@@ -60,20 +63,13 @@ function Managerdashboard() {
         </div>
       </Paper>
       <div className="contentPage">
-        {/* <Routes>
-          <Route path="/" element={<Managerhomepage />} />
-          <Route path="../adminManagement" element={<Adminmanagement />} />
-          <Route
-            path="serviceAdvisorManagement"
-            element={<Serviceadvisorsmanagement />}
-          />
-          <Route
-            path="techniciansManagement"
-            element={<Techniciansmanagement />}
-          />
-          <Route path="newLeads" element={<Newleads />} />
-        </Routes> */}
-        <Outlet/>
+        <Paper
+          className="topBar"
+          style={{ backgroundColor: "GrayText" }}
+          elevation={8}
+        ></Paper>
+
+        <Outlet />
       </div>
     </div>
   );

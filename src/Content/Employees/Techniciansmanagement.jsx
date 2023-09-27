@@ -6,15 +6,10 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import { useFormik } from "formik";
-import profileImage from "./assets/Images/profile.webp";
+import profileImage from "../../assets/Images/profile.webp";
 
 function Techniciansmanagement() {
   const buttons = [
-    {
-      name: "Back",
-      linkTo: "/managerDashBoard/managerHomepage",
-      color: "#E00B2E",
-    },
     {
       name: "Add Technicians",
       color: "#004DCB",

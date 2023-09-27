@@ -8,7 +8,6 @@
 
 /* ********Main login Page properties starts *********** */
 .loginPage {
-  border: 2px solid;
   width: 100%;
   min-width: 280px;
   height: 100vh;
@@ -17,9 +16,9 @@
   align-items: center;
   justify-content: center;
   background-color: #3e0e40;
+  gap: 2rem;
 }
 .textArea {
-  border: 2px solid;
   width: 50%;
   height: 100px;
   display: flex;
@@ -38,7 +37,6 @@
   color: antiquewhite;
 }
 .loginUserButtons {
-  border: 2px solid;
   width: 50%;
   height: fit-content;
   display: flex;
@@ -48,7 +46,7 @@
   gap: 1rem;
 }
 .selectUserButtons {
-  width: fit-content;
+  width: 200px;
   height: 50px;
   display: flex;
   align-items: center;
@@ -60,24 +58,28 @@
   cursor: pointer;
 }
 
-.LoginForm {
+.managerLoginForm,
+.managerSignupOtpForm,
+.managerSignupOtpForm,
+.ManagerNewPinForm {
   width: 500px;
-  height: 400px;
+  height: fit-content;
   position: absolute;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
+
 .inputSection {
-  border: 2px solid;
   width: 80%;
   height: 80%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 2rem;
+  gap: 1rem;
+  padding: 10px;
 }
 /* ********Main login Page properties end*********** */
 /* ********Manger Dash board *********** */
@@ -86,7 +88,7 @@
 }
 
 .sideNav {
-  width: 20%;
+  width: 15%;
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -98,6 +100,7 @@
   text-align: center;
   width: 100%;
   height: 20%;
+  justify-content: center;
 }
 
 .pageName span {
@@ -115,18 +118,103 @@
   gap: 2rem;
   margin-top: 20px;
 }
-
+.sideNavButtons {
+  padding: 10px;
+  width: 200px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
 .navButtonText {
   font-size: 20px;
   font-weight: bolder;
   color: aliceblue;
 }
 .contentPage {
-  width: 80%;
+  width: 85%;
   height: 100vh;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 2rem;
 }
 
-.managerHomepage {
+.topBar {
+  width: 100%;
+  height: 100px;
+  min-width: 280px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pageOptions {
+  border: 2px solid;
+  width: fit-content;
+  height: fit-content;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #3e0e40;
+  border-radius: 5px;
+  gap: 20px;
+  flex-wrap: wrap;
+  padding: 10px;
+}
+.options {
+  width: 150px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  cursor: pointer;
+}
+.contentTableSection {
+  width: 100%;
+  min-height: 600px;
+  overflow: scroll;
+}
+.contentTableSection table {
+  width: 100%;
+  font-size: 20px;
+}
+.contentTableSection td {
+  text-align: center;
+  border: 2px solid rgb(0, 0, 0);
+}
+
+/* add leads form */
+.addLeadsFormSection,
+.addServiceFormSection,
+.addEmployeeFormSection {
+  position: absolute;
+  width: 85%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.252);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.closeButton {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 90%;
+}
+.addLeadsFrom,
+.addServiceFrom,
+.addEmployeeFrom {
+  width: 40%;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+/* .managerHomepage {
   margin-left: 20px;
   width: 100%;
   min-width: 200px;
@@ -169,7 +257,7 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-}
+} */
 
 /* ************ User Management Page Properties start *********** */
 .managementPage {
@@ -187,7 +275,7 @@
   height: 100px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
 }
 
 .userButtons {
