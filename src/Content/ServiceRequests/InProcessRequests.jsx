@@ -1,16 +1,19 @@
-import { Button } from '@mui/material'
-import React from 'react'
+import { Button } from "@mui/material";
+import React from "react";
 
-function InProcessRequests({inProcessData,getInProcessData,getCompletedData}) {
-
+function InProcessRequests({
+  inProcessData,
+  getInProcessData,
+  getCompletedData,
+}) {
   async function updateCompletedStatus(data) {
     const update = await fetch("http://localhost:4000/serviceCompleted", {
       method: "PUT",
-      headers: { "Content-type": "application/json" },
+      headers: { "Content-type": "application/json","x-auth-advisorToken": sessionStorage.getItem("advisorAuth") },
       body: JSON.stringify(data),
     });
-    getCompletedData()
-    getInProcessData()
+    getCompletedData();
+    getInProcessData();
   }
   return (
     <div className="contentTableSection">
@@ -26,7 +29,7 @@ function InProcessRequests({inProcessData,getInProcessData,getCompletedData}) {
             <th>vehicle Number</th>
             <th>Service</th>
             <th>Status</th>
-            <th>Action</th>
+            {sessionStorage.getItem("managerAuth")||sessionStorage.getItem("adminAuth")||sessionStorage.getItem("technicianAuth") ? "" : <th>Action</th>}
           </tr>
         </thead>
         <tbody>
@@ -41,20 +44,24 @@ function InProcessRequests({inProcessData,getInProcessData,getCompletedData}) {
               <td>{data.vehicleNumber}</td>
               <td>{data.serviceRequirements}</td>
               <td>{data.status}</td>
-              <td>
-                <Button
-                  style={{ color: "purple" }}
-                  onClick={() => updateCompletedStatus(data)}
-                >
-                Completed
-                </Button>
-              </td>
+              {sessionStorage.getItem("managerAuth")||sessionStorage.getItem("adminAuth")||sessionStorage.getItem("technicianAuth") ? (
+                ""
+              ) : (
+                <td>
+                  <Button
+                    style={{ color: "purple" }}
+                    onClick={() => updateCompletedStatus(data)}
+                  >
+                    Completed
+                  </Button>
+                </td>
+              )}
             </tr>
           ))}
         </tbody>
       </table>
     </div>
-  )
+  );
 }
 
-export default InProcessRequests
+export default InProcessRequests;

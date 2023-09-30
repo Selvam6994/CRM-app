@@ -12,15 +12,15 @@ function Loginpage() {
     },
     {
       name: "Admin",
-      linkTo: "",
+      linkTo: "adminForms",
     },
     {
       name: "Service Advisors",
-      linkTo: "",
+      linkTo: "advisorForms",
     },
     {
       name: "Technicians",
-      linkTo: "",
+      linkTo: "techniciansForms",
     },
   ];
 

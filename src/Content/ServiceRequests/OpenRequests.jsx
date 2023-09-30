@@ -1,17 +1,16 @@
 import { Button } from "@mui/material";
 import React from "react";
 
-function OpenRequests({ openServiceData, getOpenRequests,getInProcessData }) {
-
+function OpenRequests({ openServiceData, getOpenRequests, getInProcessData }) {
   async function updateInProcessStatus(data) {
     const update = await fetch("http://localhost:4000/serviceInProcess", {
       method: "PUT",
-      headers: { "Content-type": "application/json" },
+      headers: { "Content-type": "application/json","x-auth-advisorToken": sessionStorage.getItem("advisorAuth") },
       body: JSON.stringify(data),
     });
 
     getOpenRequests();
-    getInProcessData()
+    getInProcessData();
   }
   return (
     <div className="contentTableSection">
@@ -27,7 +26,7 @@ function OpenRequests({ openServiceData, getOpenRequests,getInProcessData }) {
             <th>vehicle Number</th>
             <th>Service</th>
             <th>Status</th>
-            <th>Action</th>
+            {sessionStorage.getItem("managerAuth")||sessionStorage.getItem("adminAuth")||sessionStorage.getItem("technicianAuth") ? "" : <th>Action</th>}
           </tr>
         </thead>
         <tbody>
@@ -42,14 +41,18 @@ function OpenRequests({ openServiceData, getOpenRequests,getInProcessData }) {
               <td>{data.vehicleNumber}</td>
               <td>{data.serviceRequirements}</td>
               <td>{data.status}</td>
-              <td>
-                <Button
-                  style={{ color: "purple" }}
-                  onClick={() => updateInProcessStatus(data)}
-                >
-                  Start Servicing
-                </Button>
-              </td>
+              {sessionStorage.getItem("managerAuth")||sessionStorage.getItem("adminAuth")||sessionStorage.getItem("technicianAuth") ? (
+                ""
+              ) : (
+                <td>
+                  <Button
+                    style={{ color: "purple" }}
+                    onClick={() => updateInProcessStatus(data)}
+                  >
+                    Start Servicing
+                  </Button>
+                </td>
+              )}
             </tr>
           ))}
         </tbody>

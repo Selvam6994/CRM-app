@@ -5,9 +5,13 @@ function CanceledLeads({ cancelledLeadsData, getCancelledLeads }) {
   async function deleteLostData(data) {
     const updateStatus = await fetch(
       "http://localhost:4000/deleteCancelledData",
+
       {
         method: "DELETE",
-        headers: { "Content-type": "application/json" },
+        headers: {
+          "Content-type": "application/json",
+          "x-auth-adminToken": sessionStorage.getItem("adminAuth"),
+        },
         body: JSON.stringify(data),
       }
     );
@@ -25,7 +29,7 @@ function CanceledLeads({ cancelledLeadsData, getCancelledLeads }) {
             <th>Phone</th>
             <th>Requirements</th>
             <th>Status</th>
-            <th>Action</th>
+            {sessionStorage.getItem("managerAuth") ? "" : <th>Action</th>}
           </tr>
         </thead>
         <tbody>
@@ -38,14 +42,18 @@ function CanceledLeads({ cancelledLeadsData, getCancelledLeads }) {
               <td>{data.phone}</td>
               <td>{data.requirements}</td>
               <td>{data.status}</td>
-              <td>
-                <Button
-                  style={{ color: "red" }}
-                  onClick={() => deleteLostData(data)}
-                >
-                  Delete
-                </Button>
-              </td>
+              {sessionStorage.getItem("managerAuth") ? (
+                ""
+              ) : (
+                <td>
+                  <Button
+                    style={{ color: "red" }}
+                    onClick={() => deleteLostData(data)}
+                  >
+                    Delete
+                  </Button>
+                </td>
+              )}
             </tr>
           ))}
         </tbody>

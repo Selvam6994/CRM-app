@@ -10,7 +10,7 @@ function ContactedLeads({
   async function updateQualifiedStatus(data) {
     const update = await fetch("http://localhost:4000/qualifiedLeads", {
       method: "PUT",
-      headers: { "Content-type": "application/json" },
+      headers: { "Content-type": "application/json", "x-auth-adminToken": sessionStorage.getItem("adminAuth"), },
       body: JSON.stringify(data),
     });
     getContactedLeads();
@@ -20,7 +20,7 @@ function ContactedLeads({
   async function updateLostStatus(data) {
     const update = await fetch("http://localhost:4000/lostLeads", {
       method: "PUT",
-      headers: { "Content-type": "application/json" },
+      headers: { "Content-type": "application/json", "x-auth-adminToken": sessionStorage.getItem("adminAuth"), },
       body: JSON.stringify(data),
     });
     getContactedLeads();
@@ -38,7 +38,7 @@ function ContactedLeads({
             <th>Phone</th>
             <th>Requirements</th>
             <th>Status</th>
-            <th>Action</th>
+            {sessionStorage.getItem("managerAuth") ? "" : <th>Action</th>}
           </tr>
         </thead>
         <tbody>
@@ -51,21 +51,25 @@ function ContactedLeads({
               <td>{data.phone}</td>
               <td>{data.requirements}</td>
               <td>{data.status}</td>
-              <td>
-                <Button
-                  style={{ color: "purple" }}
-                  onClick={() => updateQualifiedStatus(data)}
-                >
-                  Qualified
-                </Button>
-                /
-                <Button
-                  style={{ color: "red" }}
-                  onClick={() => updateLostStatus(data)}
-                >
-                  Lost
-                </Button>
-              </td>
+              {sessionStorage.getItem("managerAuth") ? (
+                ""
+              ) : (
+                <td>
+                  <Button
+                    style={{ color: "purple" }}
+                    onClick={() => updateQualifiedStatus(data)}
+                  >
+                    Qualified
+                  </Button>
+                  /
+                  <Button
+                    style={{ color: "red" }}
+                    onClick={() => updateLostStatus(data)}
+                  >
+                    Lost
+                  </Button>
+                </td>
+              )}
             </tr>
           ))}
         </tbody>

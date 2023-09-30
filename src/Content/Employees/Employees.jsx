@@ -77,41 +77,6 @@ function Employees() {
         ))}
       </div>
       <Outlet />
-      {form ? (
-        <div className="addEmployeeFormSection">
-          <Paper elevation={8} className="addEmployeeFrom">
-            <div className="closeButton">
-              <IconButton color="error" onClick={() => setForm(false)}>
-                <CloseIcon />
-              </IconButton>
-            </div>
-            <form
-              style={{
-                padding: "20px",
-                display: "flex",
-                flexDirection: "column",
-                gap: "1rem",
-              }}
-              // onSubmit={addNewSeviceRequests.handleSubmit}
-            >
-              {formTextFields.map((data) => (
-                <TextField
-                  id={data.name}
-                  label={data.lable}
-                  name={data.name}
-                  type={data.type}
-                  variant="standard"
-                  // onChange={addNewSeviceRequests.handleChange}
-                />
-              ))}
-              <span>{errorMessage}</span>
-              <Button type="submit"> Add</Button>
-            </form>
-          </Paper>
-        </div>
-      ) : (
-        ""
-      )}
     </>
   );
 }

@@ -13,10 +13,10 @@ function Leads({
   qualifiedLeadsData,
   lostLeadsData,
   confirmedLeadsData,
-  cancelledLeadsData
+  cancelledLeadsData,
 }) {
   const [form, setForm] = useState(false);
-  const [errorMessage, setErrorMessage] = "";
+  const [errorMessage, setErrorMessage] = useState("")
   const Leads = [
     {
       name: "New",
@@ -89,7 +89,10 @@ function Leads({
     onSubmit: async (values) => {
       const postData = await fetch("http://localhost:4000/addLeads", {
         method: "POST",
-        headers: { "Content-type": "application/json" },
+        headers: {
+          "Content-type": "application/json",
+          "x-auth-adminToken": sessionStorage.getItem("adminAuth"),
+        },
         body: JSON.stringify(values),
       });
       if (postData.status == 200) {
@@ -121,7 +124,7 @@ function Leads({
             </Link>
           </motion.div>
         ))}
-        <motion.div
+        {sessionStorage.getItem("managerAuth")?"":sessionStorage.getItem("adminAuth")?<motion.div
           whileHover={{ scale: 1 }}
           whileTap={{ scale: 0.9 }}
           transition={{ type: "spring", stiffness: 400, damping: 17 }}
@@ -130,7 +133,7 @@ function Leads({
           <Paper className="options">
             <AddIcon /> New Lead
           </Paper>
-        </motion.div>
+        </motion.div>:""}
       </div>
       <Outlet />
       {form ? (

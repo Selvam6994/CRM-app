@@ -10,7 +10,10 @@ function QualifiedLeads({
   async function updateConfirmedStatus(data) {
     const update = await fetch("http://localhost:4000/confirmedLeads", {
       method: "PUT",
-      headers: { "Content-type": "application/json" },
+      headers: {
+        "Content-type": "application/json",
+        "x-auth-adminToken": sessionStorage.getItem("adminAuth"),
+      },
       body: JSON.stringify(data),
     });
     getQualifiedLeads();
@@ -20,7 +23,10 @@ function QualifiedLeads({
   async function updateCancelledStatus(data) {
     const update = await fetch("http://localhost:4000/cancelledLeads", {
       method: "PUT",
-      headers: { "Content-type": "application/json" },
+      headers: {
+        "Content-type": "application/json",
+        "x-auth-adminToken": sessionStorage.getItem("adminAuth"),
+      },
       body: JSON.stringify(data),
     });
     getQualifiedLeads();
@@ -38,7 +44,7 @@ function QualifiedLeads({
             <th>Phone</th>
             <th>Requirements</th>
             <th>Status</th>
-            <th>Action</th>
+            {sessionStorage.getItem("managerAuth") ? "" : <th>Action</th>}
           </tr>
         </thead>
         <tbody>
@@ -51,21 +57,25 @@ function QualifiedLeads({
               <td>{data.phone}</td>
               <td>{data.requirements}</td>
               <td>{data.status}</td>
-              <td>
-                <Button
-                  style={{ color: "green" }}
-                  onClick={() => updateConfirmedStatus(data)}
-                >
-                  Confirmed
-                </Button>
-                /
-                <Button
-                  style={{ color: "red" }}
-                  onClick={() => updateCancelledStatus(data)}
-                >
-                  Cancelled
-                </Button>
-              </td>
+              {sessionStorage.getItem("managerAuth") ? (
+                ""
+              ) : (
+                <td>
+                  <Button
+                    style={{ color: "green" }}
+                    onClick={() => updateConfirmedStatus(data)}
+                  >
+                    Confirmed
+                  </Button>
+                  /
+                  <Button
+                    style={{ color: "red" }}
+                    onClick={() => updateCancelledStatus(data)}
+                  >
+                    Cancelled
+                  </Button>
+                </td>
+              )}
             </tr>
           ))}
         </tbody>

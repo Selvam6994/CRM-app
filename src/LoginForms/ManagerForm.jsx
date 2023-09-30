@@ -26,7 +26,8 @@ function ManagerForm() {
       });
       if (logInData.status == 200) {
         let token = await logInData.json();
-        sessionStorage.setItem("authrisationToken", token.token);
+        sessionStorage.setItem("managerAuth", token.token);
+        sessionStorage.setItem("id", token.token);
         navigate("/managerDashBoard");
         setManagerLogInForm(false);
       } else {
@@ -109,6 +110,7 @@ function ManagerForm() {
         setNewManagerSignup(false);
         setNewPinSetForm(false);
         setErrorMessage("");
+        window.location.reload()
       } else if (userData.status == 400) {
         setErrorMessage("Check the pin number");
       }
@@ -213,8 +215,8 @@ function ManagerForm() {
           onSubmit={signUpOtpForm.handleSubmit}
         >
           <span style={{ fontSize: "30px", fontWeight: "bold" }}>
-           Verify OTP
-          </span>   
+            Verify OTP
+          </span>
           <TextField
             id="otpPin"
             label="OTP"

@@ -1,5 +1,5 @@
 import "./App.css";
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route, Link, Navigate } from "react-router-dom";
 import Managerdashboard from "./Managerdashboard";
 import Loginpage from "./Loginpage";
 // import Adminmanagement from "./Adminmanagement";
@@ -18,20 +18,25 @@ import ServiceRequests from "./Content/ServiceRequests/ServiceRequests";
 import CreatedRequests from "./Content/ServiceRequests/CreatedRequests";
 import OpenRequests from "./Content/ServiceRequests/OpenRequests";
 import InProcessRequests from "./Content/ServiceRequests/InProcessRequests";
-import ReleasedRequests from "./Content/ServiceRequests/ReleasedRequests";
 import CancelledRequests from "./Content/ServiceRequests/CancelledRequests";
 import CompletedService from "./Content/ServiceRequests/CompletedService";
 import Employees from "./Content/Employees/Employees";
 import Adminmanagement from "./Content/Employees/Adminmanagement";
 import Serviceadvisorsmanagement from "./Content/Employees/Serviceadvisorsmanagement";
 import Techniciansmanagement from "./Content/Employees/Techniciansmanagement";
+import AdminLogin from "./LoginForms/AdminLogin";
+import AdvisorLogin from "./LoginForms/AdvisorLogin";
+import TechniciansLogin from "./LoginForms/TechniciansLogin";
 
 function App() {
   // *************************Leads api fetch function***********************************
   // get new leads data
   const [newLeadsData, setNewLeadsData] = useState([]);
   async function getNewLeads() {
-    const getData = await fetch("http://localhost:4000/getNewLeads");
+    const getData = await fetch("http://localhost:4000/getNewLeads", {
+      method: "GET",
+      headers: { "x-auth-managerToken": sessionStorage.getItem("adminAuth") },
+    });
     const jsonData = await getData.json();
     if (jsonData.message == "no data") {
       setNewLeadsData([]);
@@ -43,7 +48,10 @@ function App() {
   // get contacted leads data
   const [contactedLeadsData, setContactedLeadsData] = useState([]);
   async function getContactedLeads() {
-    const getData = await fetch("http://localhost:4000/getContactedLeads");
+    const getData = await fetch("http://localhost:4000/getContactedLeads", {
+      method: "GET",
+      headers: { "x-auth-managerToken": sessionStorage.getItem("adminAuth") },
+    });
     const jsonData = await getData.json();
     if (jsonData.message == "no data") {
       setContactedLeadsData([]);
@@ -55,7 +63,10 @@ function App() {
   // get qualified leads data
   const [qualifiedLeadsData, setQualifiedLeadsData] = useState([]);
   async function getQualifiedLeads() {
-    const getData = await fetch("http://localhost:4000/getQualifiedLeads");
+    const getData = await fetch("http://localhost:4000/getQualifiedLeads", {
+      method: "GET",
+      headers: { "x-auth-managerToken": sessionStorage.getItem("adminAuth") },
+    });
     const jsonData = await getData.json();
     if (jsonData.message == "no data") {
       setQualifiedLeadsData([]);
@@ -67,7 +78,10 @@ function App() {
   // get lost leads data
   const [lostLeadsData, setLostLeadsData] = useState([]);
   async function getLostLeads() {
-    const getData = await fetch("http://localhost:4000/getLostLeads");
+    const getData = await fetch("http://localhost:4000/getLostLeads", {
+      method: "GET",
+      headers: { "x-auth-managerToken": sessionStorage.getItem("adminAuth") },
+    });
     const jsonData = await getData.json();
     if (jsonData.message == "no data") {
       setLostLeadsData([]);
@@ -79,7 +93,10 @@ function App() {
   // get confirmed leads data
   const [confirmedLeadsData, setConfirmedData] = useState([]);
   async function getConfirmedLeads() {
-    const getData = await fetch("http://localhost:4000/getConfirmedLeads");
+    const getData = await fetch("http://localhost:4000/getConfirmedLeads", {
+      method: "GET",
+      headers: { "x-auth-managerToken": sessionStorage.getItem("adminAuth") },
+    });
     const jsonData = await getData.json();
     if (jsonData.message == "no data") {
       setConfirmedData([]);
@@ -91,7 +108,10 @@ function App() {
   // get cancelled leads data
   const [cancelledLeadsData, setCancelledData] = useState([]);
   async function getCancelledLeads() {
-    const getData = await fetch("http://localhost:4000/getCancelledLeads");
+    const getData = await fetch("http://localhost:4000/getCancelledLeads", {
+      method: "GET",
+      headers: { "x-auth-managerToken": sessionStorage.getItem("adminAuth") },
+    });
     const jsonData = await getData.json();
     if (jsonData.message == "no data") {
       setCancelledData([]);
@@ -106,7 +126,14 @@ function App() {
   const [newServiceData, setNewServiceData] = useState([]);
   async function getCreatedRequests() {
     const getData = await fetch(
-      "http://localhost:4000/getCreatedServiceRequests"
+      "http://localhost:4000/getCreatedServiceRequests",
+      {
+        method: "GET",
+        headers: {
+          "x-auth-advisorToken": sessionStorage.getItem("advisorAuth"),
+          "x-auth-adminToken": sessionStorage.getItem("adminAuth"),
+        },
+      }
     );
     const jsonData = await getData.json();
     if (jsonData.message == "no data") {
@@ -119,7 +146,16 @@ function App() {
   // get Open Service Requests data
   const [openServiceData, setOpenServiceData] = useState([]);
   async function getOpenRequests() {
-    const getData = await fetch("http://localhost:4000/getOpenServiceRequests");
+    const getData = await fetch(
+      "http://localhost:4000/getOpenServiceRequests",
+      {
+        method: "GET",
+        headers: {
+          "x-auth-advisorToken": sessionStorage.getItem("advisorAuth"),
+          "x-auth-adminToken": sessionStorage.getItem("adminAuth"),
+        },
+      }
+    );
     const jsonData = await getData.json();
     if (jsonData.message == "no data") {
       setOpenServiceData([]);
@@ -131,7 +167,13 @@ function App() {
   // get Open Service Requests data
   const [inProcessData, setInProcessData] = useState([]);
   async function getInProcessData() {
-    const getData = await fetch("http://localhost:4000/getServiceInProcees");
+    const getData = await fetch("http://localhost:4000/getServiceInProcees", {
+      method: "GET",
+      headers: {
+        "x-auth-advisorToken": sessionStorage.getItem("advisorAuth"),
+        "x-auth-adminToken": sessionStorage.getItem("adminAuth"),
+      },
+    });
     const jsonData = await getData.json();
     if (jsonData.message == "no data") {
       setInProcessData([]);
@@ -144,7 +186,14 @@ function App() {
   const [completedData, setCompletedData] = useState([]);
   async function getCompletedData() {
     const getData = await fetch(
-      "http://localhost:4000/getCompletedServiceData"
+      "http://localhost:4000/getCompletedServiceData",
+      {
+        method: "GET",
+        headers: {
+          "x-auth-advisorToken": sessionStorage.getItem("advisorAuth"),
+          "x-auth-adminToken": sessionStorage.getItem("adminAuth"),
+        },
+      }
     );
     const jsonData = await getData.json();
     if (jsonData.message == "no data") {
@@ -154,17 +203,64 @@ function App() {
     }
   }
 
-  // getCompleted Service Requests data
+  // get Cancelled Service Requests data
   const [cancelledRequestData, setCancelledRequestData] = useState([]);
   async function getCancelledData() {
     const getData = await fetch(
-      "http://localhost:4000/getCancelledServiceRequests"
+      "http://localhost:4000/getCancelledServiceRequests",
+      {
+        method: "GET",
+        headers: {
+          "x-auth-advisorToken": sessionStorage.getItem("advisorAuth"),
+          "x-auth-adminToken": sessionStorage.getItem("adminAuth"),
+        },
+      }
     );
     const jsonData = await getData.json();
     if (jsonData.message == "no data") {
       setCancelledRequestData([]);
     } else {
       setCancelledRequestData(jsonData);
+    }
+  }
+
+  // *************************Service Requests api fetch function***********************************
+
+  // *************************Admin Page api fetch function***********************************
+
+  // get Admin  data
+  const [adminData, setAdminData] = useState([]);
+  async function getAdminData() {
+    const getData = await fetch("http://localhost:4000/getAdminData");
+    const jsonData = await getData.json();
+    if (jsonData.message == "no data") {
+      setAdminData([]);
+    } else {
+      setAdminData(jsonData);
+    }
+  }
+
+  // get Service Advisor data
+  const [advisorData, setAdvisorData] = useState([]);
+  async function getAdvisorData() {
+    const getData = await fetch("http://localhost:4000/getAdvisorData");
+    const jsonData = await getData.json();
+    if (jsonData.message == "no data") {
+      setAdvisorData([]);
+    } else {
+      setAdvisorData(jsonData);
+    }
+  }
+
+  // get Technician data
+  const [technicianData, setTechnicianData] = useState([]);
+  async function getTechnicianData() {
+    const getData = await fetch("http://localhost:4000/getTechnicianData");
+    const jsonData = await getData.json();
+    if (jsonData.message == "no data") {
+      setTechnicianData([]);
+    } else {
+      setTechnicianData(jsonData);
     }
   }
 
@@ -182,6 +278,12 @@ function App() {
     getInProcessData();
     getCompletedData();
     getCancelledData();
+    // Admin Data
+    getAdminData();
+    // Service Advisor Data
+    getAdvisorData();
+    // Technician Data
+    getTechnicianData();
   }, []);
 
   return (
@@ -189,148 +291,248 @@ function App() {
       <Routes>
         <Route path="/" element={<Loginpage />} />
         <Route path="managerForms" element={<ManagerForm />} />
+        <Route path="adminForms" element={<AdminLogin />} />
+        <Route path="advisorForms" element={<AdvisorLogin />} />
+        <Route path="techniciansForms" element={<TechniciansLogin />} />
         <Route path="managerDashBoard" element={<Managerdashboard />}>
-          <Route
-            path=""
-            element={
-              <Leads
-                newLeadsData={newLeadsData}
-                getNewLeads={getNewLeads}
-                contactedLeadsData={contactedLeadsData}
-                qualifiedLeadsData={qualifiedLeadsData}
-                lostLeadsData={lostLeadsData}
-                confirmedLeadsData={confirmedLeadsData}
-                cancelledLeadsData={cancelledLeadsData}
-              />
-            }
-          >
+          {sessionStorage.getItem("adminAuth") ||sessionStorage.getItem("managerAuth")? (
+            <>
+              <Route
+                path=""
+                element={
+                  <Leads
+                    newLeadsData={newLeadsData}
+                    getNewLeads={getNewLeads}
+                    contactedLeadsData={contactedLeadsData}
+                    qualifiedLeadsData={qualifiedLeadsData}
+                    lostLeadsData={lostLeadsData}
+                    confirmedLeadsData={confirmedLeadsData}
+                    cancelledLeadsData={cancelledLeadsData}
+                  />
+                }
+              >
+                <Route
+                  path=""
+                  element={
+                    <NewLeads
+                      newLeadsData={newLeadsData}
+                      getNewLeads={getNewLeads}
+                      getContactedLeads={getContactedLeads}
+                    />
+                  }
+                />
+                <Route
+                  path="contacted"
+                  element={
+                    <ContactedLeads
+                      contactedLeadsData={contactedLeadsData}
+                      getContactedLeads={getContactedLeads}
+                      getQualifiedLeads={getQualifiedLeads}
+                      getLostLeads={getLostLeads}
+                    />
+                  }
+                />
+                <Route
+                  path="qualified"
+                  element={
+                    <QualifiedLeads
+                      qualifiedLeadsData={qualifiedLeadsData}
+                      getQualifiedLeads={getQualifiedLeads}
+                      getConfirmedLeads={getConfirmedLeads}
+                      getCancelledLeads={getCancelledLeads}
+                    />
+                  }
+                />
+                <Route
+                  path="lost"
+                  element={
+                    <LostLeads
+                      lostLeadsData={lostLeadsData}
+                      getLostLeads={getLostLeads}
+                    />
+                  }
+                />
+                <Route
+                  path="cancelled"
+                  element={
+                    <CanceledLeads
+                      cancelledLeadsData={cancelledLeadsData}
+                      getCancelledLeads={getCancelledLeads}
+                    />
+                  }
+                />
+                <Route
+                  path="confirmed"
+                  element={
+                    <ConfirmedLeads confirmedLeadsData={confirmedLeadsData} />
+                  }
+                />
+              </Route>
+              <Route
+                path="serviceRequests"
+                element={
+                  <ServiceRequests
+                    newServiceData={newServiceData}
+                    openServiceData={openServiceData}
+                    inProcessData={inProcessData}
+                    completedData={completedData}
+                    cancelledRequestData={cancelledRequestData}
+                    getCreatedRequests={getCreatedRequests}
+                  />
+                }
+              >
+                <Route
+                  path=""
+                  element={
+                    <CreatedRequests
+                      newServiceData={newServiceData}
+                      getCreatedRequests={getCreatedRequests}
+                      getOpenRequests={getOpenRequests}
+                      getCancelledData={getCancelledData}
+                    />
+                  }
+                />
+                <Route
+                  path="openRequests"
+                  element={
+                    <OpenRequests
+                      openServiceData={openServiceData}
+                      getOpenRequests={getOpenRequests}
+                      getInProcessData={getInProcessData}
+                    />
+                  }
+                />
+                <Route
+                  path="inProcessRequests"
+                  element={
+                    <InProcessRequests
+                      inProcessData={inProcessData}
+                      getInProcessData={getInProcessData}
+                      getCompletedData={getCompletedData}
+                    />
+                  }
+                />
+                <Route
+                  path="cancelledRequests"
+                  element={
+                    <CancelledRequests
+                      cancelledRequestData={cancelledRequestData}
+                      getCancelledData={getCancelledData}
+                    />
+                  }
+                />
+                <Route
+                  path="completedService"
+                  element={<CompletedService completedData={completedData} />}
+                />
+              </Route>
+              <Route path="employees" element={<Employees />}>
+                <Route
+                  path=""
+                  element={
+                    <Adminmanagement
+                      adminData={adminData}
+                      getAdminData={getAdminData}
+                    />
+                  }
+                />
+                <Route
+                  path="serviceAdvisor"
+                  element={
+                    <Serviceadvisorsmanagement
+                      advisorData={advisorData}
+                      getAdvisorData={getAdvisorData}
+                    />
+                  }
+                />
+                <Route
+                  path="technician"
+                  element={
+                    <Techniciansmanagement
+                      technicianData={technicianData}
+                      getTechnicianData={getTechnicianData}
+                    />
+                  }
+                />
+              </Route>
+            </>
+          ) : sessionStorage.getItem("advisorAuth") ||
+            sessionStorage.getItem("technicianAuth") ? (
             <Route
               path=""
               element={
-                <NewLeads
-                  newLeadsData={newLeadsData}
-                  getNewLeads={getNewLeads}
-                  getContactedLeads={getContactedLeads}
-                />
-              }
-            />
-            <Route
-              path="contacted"
-              element={
-                <ContactedLeads
-                  contactedLeadsData={contactedLeadsData}
-                  getContactedLeads={getContactedLeads}
-                  getQualifiedLeads={getQualifiedLeads}
-                  getLostLeads={getLostLeads}
-                />
-              }
-            />
-            <Route
-              path="qualified"
-              element={
-                <QualifiedLeads
-                  qualifiedLeadsData={qualifiedLeadsData}
-                  getQualifiedLeads={getQualifiedLeads}
-                  getConfirmedLeads={getConfirmedLeads}
-                  getCancelledLeads={getCancelledLeads}
-                />
-              }
-            />
-            <Route
-              path="lost"
-              element={
-                <LostLeads
-                  lostLeadsData={lostLeadsData}
-                  getLostLeads={getLostLeads}
-                />
-              }
-            />
-            <Route
-              path="cancelled"
-              element={
-                <CanceledLeads
-                  cancelledLeadsData={cancelledLeadsData}
-                  getCancelledLeads={getCancelledLeads}
-                />
-              }
-            />
-            <Route
-              path="confirmed"
-              element={
-                <ConfirmedLeads confirmedLeadsData={confirmedLeadsData} />
-              }
-            />
-          </Route>
-          <Route
-            path="serviceRequests"
-            element={
-              <ServiceRequests
-                newServiceData={newServiceData}
-                openServiceData={openServiceData}
-                inProcessData={inProcessData}
-                completedData={completedData}
-                cancelledRequestData={cancelledRequestData}
-                getCreatedRequests={getCreatedRequests}
-              />
-            }
-          >
-            <Route
-              path=""
-              element={
-                <CreatedRequests
+                <ServiceRequests
                   newServiceData={newServiceData}
-                  getCreatedRequests={getCreatedRequests}
-                  getOpenRequests={getOpenRequests}
-                  getCancelledData={getCancelledData}
-                />
-              }
-            />
-            <Route
-              path="openRequests"
-              element={
-                <OpenRequests
                   openServiceData={openServiceData}
-                  getOpenRequests={getOpenRequests}
-                  getInProcessData={getInProcessData}
-                />
-              }
-            />
-            <Route
-              path="inProcessRequests"
-              element={
-                <InProcessRequests
                   inProcessData={inProcessData}
-                  getInProcessData={getInProcessData}
-                  getCompletedData={getCompletedData}
-                />
-              }
-            />
-            <Route
-              path="cancelledRequests"
-              element={
-                <CancelledRequests
+                  completedData={completedData}
                   cancelledRequestData={cancelledRequestData}
-                  getCancelledData={getCancelledData}
+                  getCreatedRequests={getCreatedRequests}
                 />
               }
-            />
-            <Route
-              path="completedService"
-              element={<CompletedService completedData={completedData} />}
-            />
-          </Route>
-          <Route path="employees" element={<Employees />}>
-            <Route path="" element={<Adminmanagement />} />
-            <Route
-              path="serviceAdvisor"
-              element={<Serviceadvisorsmanagement />}
-            />
-            <Route path="technician" element={<Techniciansmanagement />} />
-          </Route>
+            >
+              <Route
+                path=""
+                element={
+                  <CreatedRequests
+                    newServiceData={newServiceData}
+                    getCreatedRequests={getCreatedRequests}
+                    getOpenRequests={getOpenRequests}
+                    getCancelledData={getCancelledData}
+                  />
+                }
+              />
+              <Route
+                path="openRequests"
+                element={
+                  <OpenRequests
+                    openServiceData={openServiceData}
+                    getOpenRequests={getOpenRequests}
+                    getInProcessData={getInProcessData}
+                  />
+                }
+              />
+              <Route
+                path="inProcessRequests"
+                element={
+                  <InProcessRequests
+                    inProcessData={inProcessData}
+                    getInProcessData={getInProcessData}
+                    getCompletedData={getCompletedData}
+                  />
+                }
+              />
+              <Route
+                path="cancelledRequests"
+                element={
+                  <CancelledRequests
+                    cancelledRequestData={cancelledRequestData}
+                    getCancelledData={getCancelledData}
+                  />
+                }
+              />
+              <Route
+                path="completedService"
+                element={<CompletedService completedData={completedData} />}
+              />
+            </Route>
+          ) : (
+            ""
+          )}
         </Route>
       </Routes>
     </div>
   );
 }
 
+function ProtectedRoute({ children }) {
+  const token = sessionStorage.getItem("managerAuth");
+  return token ? (
+    <section>{children}</section>
+  ) : (
+    <Navigate replace to="/">
+      {" "}
+    </Navigate>
+  );
+}
 export default App;

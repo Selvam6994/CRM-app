@@ -11,7 +11,7 @@ function CreatedRequests({
   async function updateConfirmedStatus(data) {
     const update = await fetch("http://localhost:4000/openRequests", {
       method: "PUT",
-      headers: { "Content-type": "application/json" },
+      headers: { "Content-type": "application/json","x-auth-advisorToken": sessionStorage.getItem("advisorAuth")},
       body: JSON.stringify(data),
     });
     getCreatedRequests();
@@ -22,7 +22,7 @@ function CreatedRequests({
   async function updateCancelledStatus(data) {
     const update = await fetch("http://localhost:4000/cancelRequests", {
       method: "PUT",
-      headers: { "Content-type": "application/json" },
+      headers: { "Content-type": "application/json","x-auth-adminToken": sessionStorage.getItem("advisorAuth") },
       body: JSON.stringify(data),
     });
     getCancelledData();
@@ -42,7 +42,7 @@ function CreatedRequests({
             <th>vehicle Number</th>
             <th>Service</th>
             <th>Status</th>
-            <th>Action</th>
+            {sessionStorage.getItem("managerAuth")||sessionStorage.getItem("adminAuth")||sessionStorage.getItem("technicianAuth")? "" : <th>Action</th>}
           </tr>
         </thead>
         <tbody>
@@ -57,21 +57,25 @@ function CreatedRequests({
               <td>{data.vehicleNumber}</td>
               <td>{data.serviceRequirements}</td>
               <td>{data.status}</td>
-              <td>
-                <Button
-                  style={{ color: "purple" }}
-                  onClick={() => updateConfirmedStatus(data)}
-                >
-                  Open Request
-                </Button>
-                /
-                <Button
-                  style={{ color: "red" }}
-                  onClick={() => updateCancelledStatus(data)}
-                >
-                  Cancel
-                </Button>
-              </td>
+              {sessionStorage.getItem("managerAuth")||sessionStorage.getItem("adminAuth")||sessionStorage.getItem("technicianAuth") ? (
+                ""
+              ) : (
+                <td>
+                  <Button
+                    style={{ color: "purple" }}
+                    onClick={() => updateConfirmedStatus(data)}
+                  >
+                    Open Request
+                  </Button>
+                  /
+                  <Button
+                    style={{ color: "red" }}
+                    onClick={() => updateCancelledStatus(data)}
+                  >
+                    Cancel
+                  </Button>
+                </td>
+              )}
             </tr>
           ))}
         </tbody>

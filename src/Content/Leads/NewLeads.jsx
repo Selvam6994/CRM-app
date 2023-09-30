@@ -5,12 +5,16 @@ function NewLeads({ newLeadsData, getNewLeads, getContactedLeads }) {
   async function updateContactedStatus(data) {
     const update = await fetch("http://localhost:4000/contactedLeads", {
       method: "PUT",
-      headers: { "Content-type": "application/json" },
+      headers: {
+        "Content-type": "application/json",
+        "x-auth-adminToken": sessionStorage.getItem("adminAuth"),
+      },
       body: JSON.stringify(data),
     });
     getNewLeads();
     getContactedLeads();
   }
+  console.log(newLeadsData);
   return (
     <div className="contentTableSection">
       <table>
@@ -23,7 +27,7 @@ function NewLeads({ newLeadsData, getNewLeads, getContactedLeads }) {
             <th>Phone</th>
             <th>Requirements</th>
             <th>Status</th>
-            <th>Action</th>
+            {sessionStorage.getItem("managerAuth") ? "" : <th>Action</th>}
           </tr>
         </thead>
         <tbody>
@@ -36,14 +40,18 @@ function NewLeads({ newLeadsData, getNewLeads, getContactedLeads }) {
               <td>{data.phone}</td>
               <td>{data.requirements}</td>
               <td>{data.status}</td>
-              <td>
-                <Button
-                  style={{ color: "purple" }}
-                  onClick={() => updateContactedStatus(data)}
-                >
-                  Contact
-                </Button>
-              </td>
+              {sessionStorage.getItem("managerAuth") ? (
+                ""
+              ) : (
+                <td>
+                  <Button
+                    style={{ color: "purple" }}
+                    onClick={() => updateContactedStatus(data)}
+                  >
+                    Contact
+                  </Button>
+                </td>
+              )}
             </tr>
           ))}
         </tbody>

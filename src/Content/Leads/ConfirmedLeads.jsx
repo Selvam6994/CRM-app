@@ -14,7 +14,7 @@ function ConfirmedLeads({ confirmedLeadsData }) {
             <th>Phone</th>
             <th>Requirements</th>
             <th>Status</th>
-            <th>Action</th>
+            {sessionStorage.getItem("managerAuth") ? "" : <th>Action</th>}
           </tr>
         </thead>
         <tbody>
@@ -27,14 +27,18 @@ function ConfirmedLeads({ confirmedLeadsData }) {
               <td>{data.phone}</td>
               <td>{data.requirements}</td>
               <td>{data.status}</td>
-              <td>
-                <Button
-                  style={{ color: "green" }}
-                  onClick={() => updateConfirmedStatus(data)}
-                >
-                  Book Service
-                </Button>
-              </td>
+              {sessionStorage.getItem("managerAuth") ? (
+                ""
+              ) : (
+                <td>
+                  <Button
+                    style={{ color: "green" }}
+                    onClick={() => updateConfirmedStatus(data)}
+                  >
+                    Book Service
+                  </Button>
+                </td>
+              )}
             </tr>
           ))}
         </tbody>

@@ -6,9 +6,16 @@ import CloseIcon from "@mui/icons-material/Close";
 import { motion } from "framer-motion";
 import { useFormik } from "formik";
 
-function ServiceRequests({newServiceData,openServiceData,inProcessData,completedData,getCreatedRequests,cancelledRequestData}) {
+function ServiceRequests({
+  newServiceData,
+  openServiceData,
+  inProcessData,
+  completedData,
+  getCreatedRequests,
+  cancelledRequestData,
+}) {
   const [form, setForm] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("") ;
+  const [errorMessage, setErrorMessage] = useState("");
   const serviceRequests = [
     {
       name: "Created",
@@ -30,7 +37,7 @@ function ServiceRequests({newServiceData,openServiceData,inProcessData,completed
     },
     {
       name: "Cancelled",
-      counts:cancelledRequestData.length,
+      counts: cancelledRequestData.length,
       color: "red",
       linkTo: "cancelledRequests",
     },
@@ -87,12 +94,15 @@ function ServiceRequests({newServiceData,openServiceData,inProcessData,completed
     onSubmit: async (values) => {
       const postData = await fetch("http://localhost:4000/addServiceRequests", {
         method: "POST",
-        headers: { "Content-type": "application/json" },
+        headers: {
+          "Content-type": "application/json",
+          "x-auth-advisorToken": sessionStorage.getItem("advisorAuth"),
+        },
         body: JSON.stringify(values),
       });
       if (postData.status == 200) {
         setForm(false);
-        getCreatedRequests()
+        getCreatedRequests();
       } else {
         setErrorMessage("Error in adding the data");
       }
@@ -118,16 +128,23 @@ function ServiceRequests({newServiceData,openServiceData,inProcessData,completed
             </Link>
           </motion.div>
         ))}
-        <motion.div
-          whileHover={{ scale: 1 }}
-          whileTap={{ scale: 0.9 }}
-          transition={{ type: "spring", stiffness: 400, damping: 17 }}
-          onClick={() => setForm(true)}
-        >
-          <Paper className="options">
-            <AddIcon /> Add Service
-          </Paper>
-        </motion.div>
+        {sessionStorage.getItem("managerAuth") ||
+        sessionStorage.getItem("adminAuth") ? (
+         ""
+        ) : sessionStorage.getItem("advisorAuth") ? (
+          <motion.div
+            whileHover={{ scale: 1 }}
+            whileTap={{ scale: 0.9 }}
+            transition={{ type: "spring", stiffness: 400, damping: 17 }}
+            onClick={() => setForm(true)}
+          >
+            <Paper className="options">
+              <AddIcon /> Add Service
+            </Paper>
+          </motion.div>
+        ) : (
+          ""
+        )}
       </div>
       <Outlet />
       {form ? (
@@ -145,7 +162,7 @@ function ServiceRequests({newServiceData,openServiceData,inProcessData,completed
                 flexDirection: "column",
                 gap: "1rem",
               }}
-                onSubmit={addNewSeviceRequests.handleSubmit}
+              onSubmit={addNewSeviceRequests.handleSubmit}
             >
               {formTextFields.map((data) => (
                 <TextField
@@ -154,7 +171,7 @@ function ServiceRequests({newServiceData,openServiceData,inProcessData,completed
                   name={data.name}
                   type={data.type}
                   variant="standard"
-                    onChange={addNewSeviceRequests.handleChange}
+                  onChange={addNewSeviceRequests.handleChange}
                 />
               ))}
               <span>{errorMessage}</span>
@@ -165,6 +182,7 @@ function ServiceRequests({newServiceData,openServiceData,inProcessData,completed
       ) : (
         ""
       )}
+     
     </>
   );
 }

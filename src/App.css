@@ -147,7 +147,7 @@
   min-width: 280px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-evenly;
 }
 
 .pageOptions {
@@ -185,10 +185,11 @@
   border: 2px solid rgb(0, 0, 0);
 }
 
-/* add leads form */
+/* add leads,service,employees form */
 .addLeadsFormSection,
 .addServiceFormSection,
-.addEmployeeFormSection {
+.addEmployeeFormSection,
+.updateEmployeeFormSection {
   position: absolute;
   width: 85%;
   height: 100vh;
@@ -206,7 +207,8 @@
 }
 .addLeadsFrom,
 .addServiceFrom,
-.addEmployeeFrom {
+.addEmployeeFrom,
+.updateServiceFrom {
   width: 40%;
   height: fit-content;
   display: flex;
@@ -275,7 +277,7 @@
   height: 100px;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: center;
 }
 
 .userButtons {
@@ -286,6 +288,7 @@
   align-items: center;
   justify-content: space-evenly;
   cursor: pointer;
+  padding: 0.5rem;
 }
 
 .userButtons span {
@@ -293,73 +296,59 @@
 }
 /* *********admin data section ********* */
 .dataSection {
-  width: 90%;
+  width: 95%;
   height: 80%;
   display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
+  flex-direction: column;
   overflow: scroll;
+  gap: 1rem;
 }
-
+.addButtonSection {
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.addEmployeeButton {
+  width: 200px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.dataCardsSection {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 10px;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
 .userDataCards {
-  width: 250px;
-  height: 250px;
+  min-width: 300px;
+  height: fit-content;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 0.5rem;
+}
+.userDataCards img {
+  width: 100px;
+  border-radius: 50%;
+  padding: 0.5rem;
 }
 
 .userDataSection {
   width: 90%;
   height: 25px;
+  display: flex;
+  gap: 0.5rem;
   padding: 10px 10px 0px 10px;
 }
-/* ********add admin form properties ********** */
-.addUserForm {
-  position: absolute;
-  width: 50%;
-  height: fit-content;
-  margin-top: 0;
-  z-index: 1;
-  margin: 100px 0 0 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-.addUserForm span {
-  font-size: 25px;
-  font-weight: bolder;
-  color: #3e0e40;
-}
-.textFieldSection {
-  width: 50%;
-  height: 70%;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-.formButtonSection {
-  width: 100%;
-  height: fit-content;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-}
-
-.userFormButtons {
-  width: 150px;
-  height: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-/* ********add admin form properties ends********** */
 
 /* ********lead page form properties starts********** */
 .leadsPage {
