@@ -1,10 +1,11 @@
 import { Button } from "@mui/material";
 import React from "react";
+import api from "../../../global";
 
 function CanceledLeads({ cancelledLeadsData, getCancelledLeads }) {
   async function deleteLostData(data) {
     const updateStatus = await fetch(
-      "http://localhost:4000/deleteCancelledData",
+     `${api}/deleteCancelledData`,
 
       {
         method: "DELETE",

@@ -1,9 +1,10 @@
 import { Button } from "@mui/material";
 import React, { useEffect, useState } from "react";
+import api from "../../../global";
 
 function NewLeads({ newLeadsData, getNewLeads, getContactedLeads }) {
   async function updateContactedStatus(data) {
-    const update = await fetch("http://localhost:4000/contactedLeads", {
+    const update = await fetch(`${api}/contactedLeads`, {
       method: "PUT",
       headers: {
         "Content-type": "application/json",

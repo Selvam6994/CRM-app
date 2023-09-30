@@ -87,7 +87,7 @@ function Leads({
       requirements: "",
     },
     onSubmit: async (values) => {
-      const postData = await fetch("http://localhost:4000/addLeads", {
+      const postData = await fetch(`${api}/addLeads`, {
         method: "POST",
         headers: {
           "Content-type": "application/json",

@@ -2,6 +2,7 @@ import { Button, Paper, TextField } from "@mui/material";
 import { useFormik } from "formik";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import api from "../../global";
 
 function ManagerForm() {
   const navigate = useNavigate();
@@ -41,7 +42,7 @@ function ManagerForm() {
       email: "",
     },
     onSubmit: async (values) => {
-      let signUpData = await fetch("http://localhost:4000/managerSignUp", {
+      let signUpData = await fetch(`${api}/managerSignUp`, {
         method: "POST",
         headers: {
           "Content-type": "application/json",
@@ -65,7 +66,7 @@ function ManagerForm() {
     },
     onSubmit: async (values) => {
       let otpData = await fetch(
-        "http://localhost:4000/managerSignUp/otpVerification",
+        `${api}/managerSignUp/otpVerification`,
         {
           method: "POST",
           headers: {
@@ -95,7 +96,7 @@ function ManagerForm() {
     },
     onSubmit: async (values) => {
       let userData = await fetch(
-        `http://localhost:4000/managerSignUp/${signUpForm.values.email}`,
+        `${api}/managerSignUp/${signUpForm.values.email}`,
         {
           method: "POST",
           headers: {

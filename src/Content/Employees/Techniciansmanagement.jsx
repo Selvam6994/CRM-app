@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import { useFormik } from "formik";
 import profileImage from "../../assets/Images/profile.webp";
+import api from "../../../global";
 
 function Techniciansmanagement({ technicianData, getTechnicianData }) {
   const [addForm, setAddForm] = useState(false);
@@ -52,7 +53,7 @@ function Techniciansmanagement({ technicianData, getTechnicianData }) {
       confirmPin: "",
     },
     onSubmit: async (values) => {
-      const postData = await fetch("http://localhost:4000/technicianSignUp", {
+      const postData = await fetch(`${api}/technicianSignUp`, {
         method: "POST",
         headers: {
           "Content-type": "application/json",
@@ -83,7 +84,7 @@ function Techniciansmanagement({ technicianData, getTechnicianData }) {
       },
       onSubmit: async (values) => {
         const postData = await fetch(
-          "http://localhost:4000/updateTechnicianData",
+          `${api}/updateTechnicianData`,
           {
             method: "PUT",
             headers: {
@@ -112,7 +113,7 @@ function Techniciansmanagement({ technicianData, getTechnicianData }) {
       },
       onSubmit: async (values) => {
         const postData = await fetch(
-          "http://localhost:4000/updateTechnicianPin",
+          `${api}/updateTechnicianPin`,
           {
             method: "PUT",
             headers: {
@@ -256,7 +257,7 @@ function Techniciansmanagement({ technicianData, getTechnicianData }) {
   // delete technician data
   async function deleteData(data) {
     const deleteEmployeeData = await fetch(
-      "http://localhost:4000/deleteTechnicianData",
+      `${api}/deleteTechnicianData`,
       {
         method: "DELETE",
         headers: {

@@ -24,8 +24,6 @@ function Loginpage() {
     },
   ];
 
-  
-
   return (
     <div className="loginPage">
       <div className="textArea">
@@ -34,16 +32,16 @@ function Loginpage() {
       </div>
       <div className="loginUserButtons">
         {userButtons.map((data) => (
-          <Link to={data.linkTo}>
-          <motion.div
-            whileHover={{ scale: 1 }}
-            whileTap={{ scale: 0.9 }}
-            transition={{ type: "spring", stiffness: 400, damping: 17 }}
-          >
-            <Paper className="selectUserButtons" elevation={8}>
-              {data.name}
-            </Paper>
-          </motion.div>
+          <Link to={data.linkTo} style={{ textDecoration: "none" }}>
+            <motion.div
+              whileHover={{ scale: 1 }}
+              whileTap={{ scale: 0.9 }}
+              transition={{ type: "spring", stiffness: 400, damping: 17 }}
+            >
+              <Paper className="selectUserButtons" elevation={8}>
+                {data.name}
+              </Paper>
+            </motion.div>
           </Link>
         ))}
       </div>

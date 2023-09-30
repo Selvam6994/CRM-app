@@ -1,5 +1,6 @@
 import { Button } from "@mui/material";
 import React from "react";
+import api from "../../../global";
 
 function ContactedLeads({
   contactedLeadsData,
@@ -8,7 +9,7 @@ function ContactedLeads({
   getLostLeads,
 }) {
   async function updateQualifiedStatus(data) {
-    const update = await fetch("http://localhost:4000/qualifiedLeads", {
+    const update = await fetch(`${api}/qualifiedLeads`, {
       method: "PUT",
       headers: { "Content-type": "application/json", "x-auth-adminToken": sessionStorage.getItem("adminAuth"), },
       body: JSON.stringify(data),
@@ -18,7 +19,7 @@ function ContactedLeads({
   }
 
   async function updateLostStatus(data) {
-    const update = await fetch("http://localhost:4000/lostLeads", {
+    const update = await fetch(`${api}/lostLeads`, {
       method: "PUT",
       headers: { "Content-type": "application/json", "x-auth-adminToken": sessionStorage.getItem("adminAuth"), },
       body: JSON.stringify(data),

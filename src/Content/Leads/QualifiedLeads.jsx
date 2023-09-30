@@ -1,5 +1,6 @@
 import { Button } from "@mui/material";
 import React from "react";
+import api from "../../../global";
 
 function QualifiedLeads({
   qualifiedLeadsData,
@@ -8,7 +9,7 @@ function QualifiedLeads({
   getCancelledLeads,
 }) {
   async function updateConfirmedStatus(data) {
-    const update = await fetch("http://localhost:4000/confirmedLeads", {
+    const update = await fetch(`${api}/confirmedLeads`, {
       method: "PUT",
       headers: {
         "Content-type": "application/json",
@@ -21,7 +22,7 @@ function QualifiedLeads({
   }
 
   async function updateCancelledStatus(data) {
-    const update = await fetch("http://localhost:4000/cancelledLeads", {
+    const update = await fetch(`${api}/cancelledLeads`, {
       method: "PUT",
       headers: {
         "Content-type": "application/json",

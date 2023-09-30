@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import { useFormik } from "formik";
 import profileImage from "../../assets/Images/profile.webp";
+import api from "../../../global";
 
 function Serviceadvisorsmanagement({ advisorData, getAdvisorData }) {
   const [addForm, setAddForm] = useState(false);
@@ -52,7 +53,7 @@ function Serviceadvisorsmanagement({ advisorData, getAdvisorData }) {
       confirmPin: "",
     },
     onSubmit: async (values) => {
-      const postData = await fetch("http://localhost:4000/advisorSignUp", {
+      const postData = await fetch(`${api}/advisorSignUp`, {
         method: "POST",
         headers: {
           "Content-type": "application/json",
@@ -85,7 +86,7 @@ function Serviceadvisorsmanagement({ advisorData, getAdvisorData }) {
       },
       onSubmit: async (values) => {
         const postData = await fetch(
-          "http://localhost:4000/updateAdvisorData",
+          `${api}/updateAdvisorData`,
           {
             method: "PUT",
             headers: {
@@ -113,7 +114,7 @@ function Serviceadvisorsmanagement({ advisorData, getAdvisorData }) {
         confirmPin: "",
       },
       onSubmit: async (values) => {
-        const postData = await fetch("http://localhost:4000/updateAdvisorPin", {
+        const postData = await fetch(`${api}/updateAdvisorPin`, {
           method: "PUT",
           headers: {
             "Content-type": "application/json",
@@ -261,7 +262,7 @@ function Serviceadvisorsmanagement({ advisorData, getAdvisorData }) {
   // delete service advisor data
   async function deleteData(data) {
     const deleteEmployeeData = await fetch(
-      "http://localhost:4000/deleteAdvisorData",
+      `${api}/deleteAdvisorData`,
       {
         method: "DELETE",
         headers: {

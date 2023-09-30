@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import { useFormik } from "formik";
 import profileImage from "../../assets/Images/profile.webp";
+import api from "../../../global";
 
 function Adminmanagement({ adminData, getAdminData }) {
   const formTextFields = [
@@ -52,7 +53,7 @@ function Adminmanagement({ adminData, getAdminData }) {
       confirmPin: "",
     },
     onSubmit: async (values) => {
-      const postData = await fetch("http://localhost:4000/adminSignUp", {
+      const postData = await fetch(`${api}/adminSignUp`, {
         method: "POST",
         headers: {
           "Content-type": "application/json",
@@ -84,7 +85,7 @@ function Adminmanagement({ adminData, getAdminData }) {
         confirmPin: "",
       },
       onSubmit: async (values) => {
-        const postData = await fetch("http://localhost:4000/updateAdminData", {
+        const postData = await fetch(`${api}/updateAdminData`, {
           method: "PUT",
           headers: {
             "Content-type": "application/json",
@@ -119,7 +120,7 @@ function Adminmanagement({ adminData, getAdminData }) {
         confirmPin: "",
       },
       onSubmit: async (values) => {
-        const postData = await fetch("http://localhost:4000/updateAdminPin", {
+        const postData = await fetch(`${api}/updateAdminPin`, {
           method: "PUT",
           headers: {
             "Content-type": "application/json",
@@ -253,17 +254,14 @@ function Adminmanagement({ adminData, getAdminData }) {
 
   // delete admin data
   async function deleteData(data) {
-    const deleteEmployeeData = await fetch(
-      "http://localhost:4000/deleteAdminData",
-      {
-        method: "DELETE",
-        headers: {
-          "Content-type": "application/json",
-          "x-auth-managerToken": sessionStorage.getItem("managerAuth"),
-        },
-        body: JSON.stringify(data),
-      }
-    );
+    const deleteEmployeeData = await fetch(`${api}/deleteAdminData`, {
+      method: "DELETE",
+      headers: {
+        "Content-type": "application/json",
+        "x-auth-managerToken": sessionStorage.getItem("managerAuth"),
+      },
+      body: JSON.stringify(data),
+    });
     getAdminData();
   }
   return (

@@ -5,6 +5,7 @@ import AddIcon from "@mui/icons-material/Add";
 import CloseIcon from "@mui/icons-material/Close";
 import { motion } from "framer-motion";
 import { useFormik } from "formik";
+import api from "../../../global";
 
 function ServiceRequests({
   newServiceData,
@@ -92,7 +93,7 @@ function ServiceRequests({
       date: "",
     },
     onSubmit: async (values) => {
-      const postData = await fetch("http://localhost:4000/addServiceRequests", {
+      const postData = await fetch(`${api}/addServiceRequests`, {
         method: "POST",
         headers: {
           "Content-type": "application/json",
@@ -130,7 +131,7 @@ function ServiceRequests({
         ))}
         {sessionStorage.getItem("managerAuth") ||
         sessionStorage.getItem("adminAuth") ? (
-         ""
+          ""
         ) : sessionStorage.getItem("advisorAuth") ? (
           <motion.div
             whileHover={{ scale: 1 }}
@@ -182,7 +183,6 @@ function ServiceRequests({
       ) : (
         ""
       )}
-     
     </>
   );
 }

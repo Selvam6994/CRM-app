@@ -1,5 +1,6 @@
 import { Button } from "@mui/material";
 import React from "react";
+import api from "../../../global";
 
 function InProcessRequests({
   inProcessData,
@@ -7,9 +8,12 @@ function InProcessRequests({
   getCompletedData,
 }) {
   async function updateCompletedStatus(data) {
-    const update = await fetch("http://localhost:4000/serviceCompleted", {
+    const update = await fetch(`${api}/serviceCompleted`, {
       method: "PUT",
-      headers: { "Content-type": "application/json","x-auth-advisorToken": sessionStorage.getItem("advisorAuth") },
+      headers: {
+        "Content-type": "application/json",
+        "x-auth-advisorToken": sessionStorage.getItem("advisorAuth"),
+      },
       body: JSON.stringify(data),
     });
     getCompletedData();
@@ -29,7 +33,13 @@ function InProcessRequests({
             <th>vehicle Number</th>
             <th>Service</th>
             <th>Status</th>
-            {sessionStorage.getItem("managerAuth")||sessionStorage.getItem("adminAuth")||sessionStorage.getItem("technicianAuth") ? "" : <th>Action</th>}
+            {sessionStorage.getItem("managerAuth") ||
+            sessionStorage.getItem("adminAuth") ||
+            sessionStorage.getItem("technicianAuth") ? (
+              ""
+            ) : (
+              <th>Action</th>
+            )}
           </tr>
         </thead>
         <tbody>
@@ -44,7 +54,9 @@ function InProcessRequests({
               <td>{data.vehicleNumber}</td>
               <td>{data.serviceRequirements}</td>
               <td>{data.status}</td>
-              {sessionStorage.getItem("managerAuth")||sessionStorage.getItem("adminAuth")||sessionStorage.getItem("technicianAuth") ? (
+              {sessionStorage.getItem("managerAuth") ||
+              sessionStorage.getItem("adminAuth") ||
+              sessionStorage.getItem("technicianAuth") ? (
                 ""
               ) : (
                 <td>

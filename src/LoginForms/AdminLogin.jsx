@@ -2,6 +2,7 @@ import { Button, TextField } from "@mui/material";
 import { useFormik } from "formik";
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import api from "../../global";
 
 function AdminLogin() {
   const navigate = useNavigate();
@@ -12,7 +13,7 @@ function AdminLogin() {
     },
 
     onSubmit: async (values) => {
-      let logInData = await fetch("http://localhost:4000/adminLogIn", {
+      let logInData = await fetch(`${api}/adminLogIn`, {
         method: "POST",
         headers: {
           "Content-type": "application/json",

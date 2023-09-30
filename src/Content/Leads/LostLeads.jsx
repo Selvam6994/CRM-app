@@ -1,9 +1,10 @@
 import { Button } from "@mui/material";
 import React from "react";
+import api from "../../../global";
 
 function LostLeads({ lostLeadsData, getLostLeads }) {
   async function deleteLostData(data) {
-    const updateStatus = await fetch("http://localhost:4000/deleteLostData", {
+    const updateStatus = await fetch(`${api}/deleteLostData`, {
       method: "DELETE",
       headers: { "Content-type": "application/json", "x-auth-adminToken": sessionStorage.getItem("adminAuth"),},
       body: JSON.stringify(data),

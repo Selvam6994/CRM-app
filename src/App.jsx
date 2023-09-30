@@ -27,13 +27,14 @@ import Techniciansmanagement from "./Content/Employees/Techniciansmanagement";
 import AdminLogin from "./LoginForms/AdminLogin";
 import AdvisorLogin from "./LoginForms/AdvisorLogin";
 import TechniciansLogin from "./LoginForms/TechniciansLogin";
+import api from "../global";
 
 function App() {
   // *************************Leads api fetch function***********************************
   // get new leads data
   const [newLeadsData, setNewLeadsData] = useState([]);
   async function getNewLeads() {
-    const getData = await fetch("http://localhost:4000/getNewLeads", {
+    const getData = await fetch(`${api}/getNewLeads`, {
       method: "GET",
       headers: { "x-auth-managerToken": sessionStorage.getItem("adminAuth") },
     });
@@ -48,7 +49,7 @@ function App() {
   // get contacted leads data
   const [contactedLeadsData, setContactedLeadsData] = useState([]);
   async function getContactedLeads() {
-    const getData = await fetch("http://localhost:4000/getContactedLeads", {
+    const getData = await fetch(`${api}/getContactedLeads`, {
       method: "GET",
       headers: { "x-auth-managerToken": sessionStorage.getItem("adminAuth") },
     });
@@ -63,7 +64,7 @@ function App() {
   // get qualified leads data
   const [qualifiedLeadsData, setQualifiedLeadsData] = useState([]);
   async function getQualifiedLeads() {
-    const getData = await fetch("http://localhost:4000/getQualifiedLeads", {
+    const getData = await fetch(`${api}/getQualifiedLeads`, {
       method: "GET",
       headers: { "x-auth-managerToken": sessionStorage.getItem("adminAuth") },
     });
@@ -78,7 +79,7 @@ function App() {
   // get lost leads data
   const [lostLeadsData, setLostLeadsData] = useState([]);
   async function getLostLeads() {
-    const getData = await fetch("http://localhost:4000/getLostLeads", {
+    const getData = await fetch(`${api}/getLostLeads`, {
       method: "GET",
       headers: { "x-auth-managerToken": sessionStorage.getItem("adminAuth") },
     });
@@ -93,7 +94,7 @@ function App() {
   // get confirmed leads data
   const [confirmedLeadsData, setConfirmedData] = useState([]);
   async function getConfirmedLeads() {
-    const getData = await fetch("http://localhost:4000/getConfirmedLeads", {
+    const getData = await fetch(`${api}/getConfirmedLeads`, {
       method: "GET",
       headers: { "x-auth-managerToken": sessionStorage.getItem("adminAuth") },
     });
@@ -108,7 +109,7 @@ function App() {
   // get cancelled leads data
   const [cancelledLeadsData, setCancelledData] = useState([]);
   async function getCancelledLeads() {
-    const getData = await fetch("http://localhost:4000/getCancelledLeads", {
+    const getData = await fetch(`${api}/getCancelledLeads`, {
       method: "GET",
       headers: { "x-auth-managerToken": sessionStorage.getItem("adminAuth") },
     });
@@ -126,7 +127,7 @@ function App() {
   const [newServiceData, setNewServiceData] = useState([]);
   async function getCreatedRequests() {
     const getData = await fetch(
-      "http://localhost:4000/getCreatedServiceRequests",
+      `${api}/getCreatedServiceRequests`,
       {
         method: "GET",
         headers: {
@@ -147,7 +148,7 @@ function App() {
   const [openServiceData, setOpenServiceData] = useState([]);
   async function getOpenRequests() {
     const getData = await fetch(
-      "http://localhost:4000/getOpenServiceRequests",
+      `${api}/getOpenServiceRequests`,
       {
         method: "GET",
         headers: {
@@ -167,7 +168,7 @@ function App() {
   // get Open Service Requests data
   const [inProcessData, setInProcessData] = useState([]);
   async function getInProcessData() {
-    const getData = await fetch("http://localhost:4000/getServiceInProcees", {
+    const getData = await fetch(`${api}/getServiceInProcees`, {
       method: "GET",
       headers: {
         "x-auth-advisorToken": sessionStorage.getItem("advisorAuth"),
@@ -186,7 +187,7 @@ function App() {
   const [completedData, setCompletedData] = useState([]);
   async function getCompletedData() {
     const getData = await fetch(
-      "http://localhost:4000/getCompletedServiceData",
+      `${api}/getCompletedServiceData`,
       {
         method: "GET",
         headers: {
@@ -207,7 +208,7 @@ function App() {
   const [cancelledRequestData, setCancelledRequestData] = useState([]);
   async function getCancelledData() {
     const getData = await fetch(
-      "http://localhost:4000/getCancelledServiceRequests",
+      `${api}/getCancelledServiceRequests`,
       {
         method: "GET",
         headers: {
@@ -231,7 +232,7 @@ function App() {
   // get Admin  data
   const [adminData, setAdminData] = useState([]);
   async function getAdminData() {
-    const getData = await fetch("http://localhost:4000/getAdminData");
+    const getData = await fetch(`${api}/getAdminData`);
     const jsonData = await getData.json();
     if (jsonData.message == "no data") {
       setAdminData([]);
@@ -243,7 +244,7 @@ function App() {
   // get Service Advisor data
   const [advisorData, setAdvisorData] = useState([]);
   async function getAdvisorData() {
-    const getData = await fetch("http://localhost:4000/getAdvisorData");
+    const getData = await fetch(`${api}/getAdvisorData`);
     const jsonData = await getData.json();
     if (jsonData.message == "no data") {
       setAdvisorData([]);
@@ -255,7 +256,7 @@ function App() {
   // get Technician data
   const [technicianData, setTechnicianData] = useState([]);
   async function getTechnicianData() {
-    const getData = await fetch("http://localhost:4000/getTechnicianData");
+    const getData = await fetch(`${api}/getTechnicianData`);
     const jsonData = await getData.json();
     if (jsonData.message == "no data") {
       setTechnicianData([]);

@@ -1,5 +1,6 @@
 import { Button } from "@mui/material";
 import React from "react";
+import api from "../../../global";
 
 function CreatedRequests({
   newServiceData,
@@ -9,9 +10,12 @@ function CreatedRequests({
 }) {
   // update to open status
   async function updateConfirmedStatus(data) {
-    const update = await fetch("http://localhost:4000/openRequests", {
+    const update = await fetch(`${api}/openRequests`, {
       method: "PUT",
-      headers: { "Content-type": "application/json","x-auth-advisorToken": sessionStorage.getItem("advisorAuth")},
+      headers: {
+        "Content-type": "application/json",
+        "x-auth-advisorToken": sessionStorage.getItem("advisorAuth"),
+      },
       body: JSON.stringify(data),
     });
     getCreatedRequests();
@@ -20,9 +24,12 @@ function CreatedRequests({
 
   // update to cancelled status
   async function updateCancelledStatus(data) {
-    const update = await fetch("http://localhost:4000/cancelRequests", {
+    const update = await fetch(`${api}/cancelRequests`, {
       method: "PUT",
-      headers: { "Content-type": "application/json","x-auth-adminToken": sessionStorage.getItem("advisorAuth") },
+      headers: {
+        "Content-type": "application/json",
+        "x-auth-adminToken": sessionStorage.getItem("advisorAuth"),
+      },
       body: JSON.stringify(data),
     });
     getCancelledData();
@@ -42,7 +49,13 @@ function CreatedRequests({
             <th>vehicle Number</th>
             <th>Service</th>
             <th>Status</th>
-            {sessionStorage.getItem("managerAuth")||sessionStorage.getItem("adminAuth")||sessionStorage.getItem("technicianAuth")? "" : <th>Action</th>}
+            {sessionStorage.getItem("managerAuth") ||
+            sessionStorage.getItem("adminAuth") ||
+            sessionStorage.getItem("technicianAuth") ? (
+              ""
+            ) : (
+              <th>Action</th>
+            )}
           </tr>
         </thead>
         <tbody>
@@ -57,7 +70,9 @@ function CreatedRequests({
               <td>{data.vehicleNumber}</td>
               <td>{data.serviceRequirements}</td>
               <td>{data.status}</td>
-              {sessionStorage.getItem("managerAuth")||sessionStorage.getItem("adminAuth")||sessionStorage.getItem("technicianAuth") ? (
+              {sessionStorage.getItem("managerAuth") ||
+              sessionStorage.getItem("adminAuth") ||
+              sessionStorage.getItem("technicianAuth") ? (
                 ""
               ) : (
                 <td>
